@@ -1,3 +1,8 @@
+<?php 
+date_default_timezone_set('Asia/Kolkata');  // Change to your required timezone  
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,7 +63,7 @@
             <tbody></tbody>
         </table>
 
-        <a href="<?= base_url(); ?>" class="btn btn-secondary">Back to Home</a>
+        <a href="<?= base_url('dashboard'); ?>" class="btn btn-secondary">Back to Home</a>
 
 
 
@@ -338,10 +343,13 @@ async function exportExpenses(format) {
                 "Authorization": "Bearer " + jwtToken
             }
         });
-
+        // console.log('response',response);
+        // return;
         if (!response.ok) {
             throw new Error("Failed to export expenses");
         }
+
+      
 
         const blob = await response.blob();
         const filename = `expenses_${year}_${month}.${format}`;

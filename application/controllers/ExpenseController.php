@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+date_default_timezone_set('Asia/Kolkata');  // Change to your required timezone  
 
 class ExpenseController extends MY_Controller {
     public function __construct() {
@@ -103,7 +104,6 @@ class ExpenseController extends MY_Controller {
     
         $data = json_decode(file_get_contents("php://input"), true);
     
-        print_r($data);exit;
         if (!isset($data['amount'], $data['category_id'], $data['description'], $data['date'])) {
             echo json_encode(["error" => "All fields (amount, category_id, description, date) are required"]);
             return;
@@ -203,20 +203,36 @@ class ExpenseController extends MY_Controller {
     
 
 
-        public function export_pdf() {
-            $year = $this->input->get('year');
-            $month = $this->input->get('month');
+    public function export_pdf() {
+        $year = $this->input->get('year');
+        $month = $this->input->get('month');
     
-            $data['expenses'] = $this->ExpenseModel->get_expenses_by_month($year, $month);
-            $data['year'] = $year;
-            $data['month'] = $month;
-    
-
-
-            $html = $this->load->view('expenses_pdf', $data, true);
-    
-            $this->pdf->createPDF($html, "expenses_{$year}_{$month}", true);
+        if (!$year || !$month) {
+            die("Year or month not provided");
         }
+    
+        $data['expenses'] = $this->ExpenseModel->get_expenses_by_month($year, $month);
+        
+        if (!$data['expenses']) {
+            die("No expenses found for {$year}-{$month}");
+        }
+    
+        $data['year'] = $year;
+        $data['month'] = $month;
+    
+        // Debug PDF generation
+        try {
+
+          $html = $this->load->view('expenses_pdf', $data, true);
+
+          $this->pdf->createPDF($html, "expenses_{$year}_{$month}", true);
+
+        } catch (Exception $e) {
+
+            die("PDF generation failed: " . $e->getMessage());
+        }
+    }
+    
 
 
 

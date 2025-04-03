@@ -1,3 +1,7 @@
+<?php 
+date_default_timezone_set('Asia/Kolkata');  // Change to your required timezone  
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,7 +44,7 @@
         <tbody></tbody>
     </table>
 
-    <a href="<?= base_url(); ?>" class="btn btn-secondary">Back to Home</a>
+    <a href="<?= base_url('dashboard'); ?>" class="btn btn-secondary">Back to Home</a>
 
 
     <!-- Edit Budget Modal -->

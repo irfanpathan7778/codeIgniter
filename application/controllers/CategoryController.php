@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+date_default_timezone_set('Asia/Kolkata');  // Change to your required timezone  
 
 class CategoryController extends MY_Controller {
     public function __construct() {

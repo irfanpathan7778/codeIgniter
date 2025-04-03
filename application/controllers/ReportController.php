@@ -1,4 +1,6 @@
 <?php 
+date_default_timezone_set('Asia/Kolkata');  // Change to your required timezone  
+
 class ReportController extends CI_Controller {
 
 

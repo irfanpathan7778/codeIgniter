@@ -1,3 +1,7 @@
+<?php 
+date_default_timezone_set('Asia/Kolkata');  // Change to your required timezone  
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
